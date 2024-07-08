@@ -6,7 +6,7 @@ import FormInput from '@/components/ui/FormInput';
 import ErrorText from '@/components/ui/ErrorText';
 import Card from '@/components/ui/Card';
 import CardHeader from '@/components/ui/CardHeader';
-import { getFaucetUrl, getNetworkToken, isEip1559Supported, isZksync } from '@/utils/network';
+import { getFaucetUrl, getNetworkToken, isEip1559Supported } from '@/utils/network';
 import showToast from '@/utils/showToast';
 import Spacer from '@/components/ui/Spacer';
 import TransactionHistory from '@/components/ui/TransactionHistory';
@@ -45,7 +45,7 @@ const SendTransaction = () => {
       value: web3.utils.toWei(amount, 'ether'),
     };
 
-    if (isEip1559Supported() && !isZksync()) {
+    if (isEip1559Supported()) {
       const feeData = await web3.eth.calculateFeeData();
       txnParams.maxFeePerGas = BigInt(feeData.maxFeePerGas);
       txnParams.maxPriorityFeePerGas = BigInt(feeData.maxPriorityFeePerGas);
